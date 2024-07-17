@@ -42,6 +42,18 @@ class TheCommand extends NewMcCommand.HasSub {
         text.append(Component.text("]").color(NamedTextColor.GRAY));
     }
 
+    @Override
+    protected boolean onNotFound(@NotNull CommandSender sender, @NotNull String sub) {
+        new Sender((sender)).warning("不支持的游戏模式：%s，请检查拼写是否正确".formatted(sub));
+        return true;
+    }
+
+    @Override
+    protected boolean onThisCommand(@NotNull CommandSender sender) {
+        new Sender((sender)).warning("必须要指定要切换到什么游戏模式哦");
+        return true;
+    }
+
     class TheMode extends NewMcCommand {
 
         private final @NotNull Permission permission;
@@ -87,7 +99,7 @@ class TheCommand extends NewMcCommand.HasSub {
 
             if (gameMode != this.mode) {
                 player.setGameMode(this.mode);
-                sd.info("已切换您的游戏模式为" + name + "模式");
+                sd.info("已切换您的游戏模式为" + name + "模式 :D");
             } else {
                 sd.warning("无需切换，您已经是" + name + "模式");
             }
